@@ -1,0 +1,307 @@
+/* Employee Row Styles */
+.employee-row {
+  height: var(--table-row-height);
+  background-color: var(--bg-card);
+  transition: background-color var(--transition-fast);
+  position: relative;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.employee-row:nth-child(even) {
+  background-color: var(--bg-secondary);
+}
+
+.employee-row:hover,
+.employee-row.is-hovered {
+  background-color: var(--bg-hover);
+}
+
+.employee-row.is-selected {
+  background-color: rgba(59, 130, 246, 0.2);
+  border-left: 3px solid var(--primary-color);
+}
+
+.employee-row.is-selected:hover {
+  background-color: var(--primary-light);
+}
+
+/* Row Cells */
+.row-cell {
+  padding: 0;
+  border-right: 1px solid var(--excel-grid);
+  border-bottom: 1px solid var(--excel-grid);
+  vertical-align: middle;
+  position: relative;
+}
+
+.row-cell:last-child {
+  border-right: none;
+}
+
+.cell-content {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Checkbox Cell */
+.row-checkbox-cell {
+  width: 40px;
+  text-align: center;
+  padding: 0;
+  border-right: 1px solid var(--excel-grid);
+  border-bottom: 1px solid var(--excel-grid);
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background-color: inherit;
+}
+
+.row-checkbox {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+/* Specific Column Widths */
+.row-cell-sl {
+  width: var(--table-sl-width);
+  text-align: center;
+  font-weight: var(--font-medium);
+  position: sticky;
+  left: 40px;
+  z-index: 2;
+  background-color: inherit;
+}
+
+.row-cell-empid {
+  width: var(--table-empid-width);
+  position: sticky;
+  left: 100px;
+  z-index: 2;
+  background-color: inherit;
+}
+
+.emp-id {
+  font-family: 'Courier New', monospace;
+  font-weight: var(--font-semibold);
+  color: var(--primary-color);
+}
+
+.row-cell-empname {
+  width: var(--table-empname-width);
+  min-width: var(--table-empname-width);
+  position: sticky;
+  left: 220px;
+  z-index: 2;
+  background-color: inherit;
+}
+
+.employee-name-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-sm);
+  height: 100%;
+  width: 100%;
+}
+
+.emp-name {
+  flex: 1;
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-cell-month {
+  width: var(--table-month-width);
+  text-align: center;
+  font-weight: var(--font-medium);
+  position: sticky;
+  left: 470px;
+  z-index: 2;
+  background-color: inherit;
+}
+
+.row-cell-day {
+  padding: 0;
+  width: var(--table-cell-min-width);
+  height: var(--table-row-height);
+}
+
+.day-cell-disabled {
+  width: var(--table-cell-min-width);
+  height: var(--table-row-height);
+  background-color: var(--gray-100);
+  cursor: not-allowed;
+}
+
+.row-cell-summary {
+  padding: 0;
+  width: var(--table-summary-width);
+}
+
+/* Row Actions */
+.row-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.employee-row:hover .row-actions,
+.employee-row.is-hovered .row-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.action-btn:hover {
+  background-color: var(--gray-200);
+  transform: scale(1.1);
+}
+
+.action-edit:hover {
+  background-color: var(--info-bg);
+}
+
+.action-delete:hover {
+  background-color: var(--error-bg);
+}
+
+/* Context Menu */
+.context-menu {
+  position: absolute;
+  right: 10px;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  min-width: 180px;
+  padding: var(--spacing-xs);
+  animation: menuSlide 0.2s ease-out;
+}
+
+@keyframes menuSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  font-size: var(--font-sm);
+  color: var(--gray-700);
+  text-align: left;
+}
+
+.context-menu-item:hover {
+  background-color: var(--gray-100);
+}
+
+.context-menu-danger {
+  color: var(--error-color);
+}
+
+.context-menu-danger:hover {
+  background-color: var(--error-bg);
+}
+
+.context-menu-divider {
+  height: 1px;
+  background-color: var(--gray-200);
+  margin: var(--spacing-xs) 0;
+}
+
+.menu-icon {
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Sticky Shadow Effect */
+.row-checkbox-cell::after,
+.row-cell-sl::after,
+.row-cell-empid::after,
+.row-cell-empname::after,
+.row-cell-month::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .row-cell-empname {
+    width: 150px;
+  }
+  
+  .emp-name {
+    font-size: var(--font-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .row-cell-sl,
+  .row-cell-empid,
+  .row-cell-empname,
+  .row-cell-month {
+    position: static;
+  }
+  
+  .row-actions {
+    opacity: 1;
+  }
+  
+  .action-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .row-cell-empname {
+    width: 120px;
+  }
+  
+  .row-cell-empid {
+    width: 80px;
+  }
+}

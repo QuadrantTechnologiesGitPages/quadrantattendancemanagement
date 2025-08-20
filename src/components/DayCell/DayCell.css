@@ -1,0 +1,330 @@
+/* Day Cell Styles */
+.day-cell {
+  position: relative;
+  width: var(--table-cell-min-width);
+  height: var(--table-row-height);
+  border: 1px solid var(--excel-grid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: var(--font-semibold);
+  font-size: var(--font-md);
+  user-select: none;
+  background-color: var(--white);
+}
+
+.day-cell:hover:not(.is-disabled) {
+  border-color: var(--primary-color);
+  box-shadow: inset 0 0 0 1px var(--primary-color);
+  z-index: 1;
+}
+
+.day-cell:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-light);
+  z-index: 2;
+}
+
+.day-cell.is-editing {
+  box-shadow: 0 0 0 2px var(--primary-color);
+  z-index: 10;
+}
+
+/* Cell Value */
+.cell-value {
+  font-size: var(--font-md);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Special Day Indicators */
+.day-cell.is-weekend {
+  background-color: var(--gray-50);
+}
+
+.day-cell.is-holiday {
+  background-color: var(--bg-holiday);
+}
+
+.day-cell.is-today {
+  position: relative;
+  box-shadow: inset 0 0 0 2px var(--primary-color);
+}
+
+.today-indicator {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* Disabled State */
+.day-cell.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: var(--gray-100);
+}
+
+/* Status Colors - Applied dynamically */
+.day-cell.status-p {
+  background-color: var(--bg-present) !important;
+  color: var(--color-present) !important;
+}
+
+.day-cell.status-a {
+  background-color: var(--bg-absent) !important;
+  color: var(--color-absent) !important;
+}
+
+.day-cell.status-l {
+  background-color: var(--bg-leave) !important;
+  color: var(--color-leave) !important;
+}
+
+.day-cell.status-o {
+  background-color: var(--bg-off) !important;
+  color: var(--color-off) !important;
+}
+
+.day-cell.status-s {
+  background-color: var(--bg-sunday) !important;
+  color: var(--color-sunday) !important;
+}
+
+.day-cell.status-h {
+  background-color: var(--bg-holiday) !important;
+  color: var(--color-holiday) !important;
+}
+
+.day-cell.status-n {
+  background-color: var(--bg-night) !important;
+  color: var(--color-night) !important;
+}
+
+.day-cell.status-hd {
+  background-color: var(--bg-halfday) !important;
+  color: var(--color-halfday) !important;
+}
+
+.day-cell.status-wfh {
+  background-color: var(--bg-wfh) !important;
+  color: var(--color-wfh) !important;
+}
+
+/* Attendance Dropdown */
+.attendance-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  min-width: 200px;
+  max-height: 400px;
+  overflow: hidden;
+  animation: dropdownSlide 0.2s ease-out;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Dropdown Header */
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+  font-weight: var(--font-semibold);
+  font-size: var(--font-sm);
+  color: var(--gray-700);
+}
+
+.dropdown-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--gray-500);
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.dropdown-close:hover {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+}
+
+/* Dropdown Options */
+.dropdown-options {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: var(--spacing-xs);
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 2px;
+}
+
+.dropdown-option:hover {
+  background-color: var(--gray-50);
+}
+
+.dropdown-option.selected {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  font-weight: var(--font-semibold);
+}
+
+.option-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-bold);
+  font-size: var(--font-sm);
+  background-color: var(--option-bg);
+  color: var(--option-color);
+  border: 1px solid var(--option-color);
+  flex-shrink: 0;
+}
+
+.option-label {
+  flex: 1;
+  font-size: var(--font-sm);
+  color: var(--gray-700);
+}
+
+.dropdown-option.selected .option-label {
+  color: var(--primary-color);
+}
+
+/* Clear Option */
+.clear-option {
+  border-top: 1px solid var(--gray-200);
+  margin-top: var(--spacing-xs);
+  padding-top: var(--spacing-sm);
+}
+
+.clear-option .option-code {
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+  border-color: var(--gray-300);
+}
+
+.clear-option:hover {
+  background-color: var(--error-bg);
+}
+
+.clear-option:hover .option-code {
+  background-color: var(--error-color);
+  color: var(--white);
+  border-color: var(--error-color);
+}
+
+/* Dropdown Footer */
+.dropdown-footer {
+  padding: var(--spacing-sm);
+  background-color: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+.dropdown-hint {
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+  text-align: center;
+}
+
+/* Scrollbar for dropdown */
+.dropdown-options::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-options::-webkit-scrollbar-track {
+  background: var(--gray-50);
+  border-radius: var(--radius-sm);
+}
+
+.dropdown-options::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: var(--radius-sm);
+}
+
+.dropdown-options::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .day-cell {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .cell-value {
+    font-size: var(--font-sm);
+  }
+  
+  .attendance-dropdown {
+    min-width: 180px;
+    left: 0;
+    transform: none;
+  }
+  
+  .dropdown-option {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .option-code {
+    width: 24px;
+    height: 24px;
+    font-size: var(--font-xs);
+  }
+}

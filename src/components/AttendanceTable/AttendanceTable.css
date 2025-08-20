@@ -1,0 +1,422 @@
+:root {
+  --table-cell-min-width: 40px;   /* defined so it doesn’t collapse */
+  --table-summary-width: 90px;
+  --table-row-height: 36px;
+}
+
+/* Attendance Table Container */
+.attendance-table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+/* Filter Bar */
+.table-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--excel-border);
+}
+
+.table-filter-input {
+  width: 300px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--excel-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-md);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* Table Wrapper - Enable horizontal scroll */
+.table-wrapper {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Main Table */
+.attendance-table {
+  width: max-content;     /* key: table grows by content */
+  min-width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-card);
+  table-layout: fixed;    /* columns stay aligned */
+}
+
+/* All table cells and headers */
+.attendance-table th,
+.attendance-table td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid var(--excel-border);
+  font-size: var(--font-sm);
+}
+
+/* Headers */
+.attendance-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.attendance-table th {
+  background-color: var(--excel-header-bg);
+  color: var(--excel-header-text);
+  font-weight: var(--font-semibold);
+}
+
+/* Sticky/Fixed columns */
+.header-checkbox, .row-checkbox-cell { 
+  width: 40px;
+  position: sticky;
+  left: 0;
+  z-index: 101;
+  background-color: var(--excel-header-bg);
+}
+
+.row-checkbox-cell {
+  background-color: var(--bg-card);
+}
+
+.header-sl, .row-cell-sl { 
+  width: 60px;
+  position: sticky;
+  left: 40px;
+  z-index: 101;
+  background-color: var(--excel-header-bg);
+}
+
+.row-cell-sl {
+  background-color: var(--bg-card);
+}
+
+.header-empid, .row-cell-empid { 
+  width: 120px;
+  position: sticky;
+  left: 100px;
+  z-index: 101;
+  background-color: var(--excel-header-bg);
+}
+
+.row-cell-empid {
+  background-color: var(--bg-card);
+}
+
+.header-empname, .row-cell-empname { 
+  width: 250px;
+  text-align: left;
+  padding-left: 12px;
+  position: sticky;
+  left: 220px;
+  z-index: 101;
+  background-color: var(--excel-header-bg);
+}
+
+.row-cell-empname {
+  background-color: var(--bg-card);
+}
+
+.header-month, .row-cell-month { 
+  width: 80px;
+  position: sticky;
+  left: 470px;
+  z-index: 101;
+  background-color: var(--excel-header-bg);
+}
+
+.row-cell-month {
+  background-color: var(--bg-card);
+}
+
+/* Ensure sticky columns have proper backgrounds on hover */
+.employee-row:hover .row-checkbox-cell,
+.employee-row:hover .row-cell-sl,
+.employee-row:hover .row-cell-empid,
+.employee-row:hover .row-cell-empname,
+.employee-row:hover .row-cell-month {
+  background-color: var(--bg-hover);
+}
+
+/* Day cells */
+.header-day, .row-cell-day { 
+  width: var(--table-cell-min-width);
+  min-width: var(--table-cell-min-width);
+  max-width: var(--table-cell-min-width);
+  padding: 0;
+}
+
+/* Summary cells */
+.header-summary, .row-cell-summary { 
+  width: var(--table-summary-width);
+  min-width: var(--table-summary-width);
+}
+
+/* Shadow for sticky columns */
+.header-month::after,
+.row-cell-month::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -5px;
+  bottom: -1px;
+  width: 5px;
+  background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+  pointer-events: none;
+}
+
+/* Day Header styling */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.header-content.sortable {
+  cursor: pointer;
+}
+
+.sort-icon {
+  font-size: 10px;
+  opacity: 0.5;
+}
+
+.day-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.day-number {
+  font-weight: var(--font-bold);
+  font-size: var(--font-md);
+}
+
+.day-indicator {
+  font-size: var(--font-xs);
+  padding: 1px 3px;
+  border-radius: var(--radius-sm);
+  background-color: var(--gray-600);
+  color: var(--white);
+  font-weight: var(--font-semibold);
+}
+
+.header-day.is-weekend {
+  background-color: var(--bg-sunday);
+}
+
+.header-day.is-weekend .day-indicator {
+  background-color: var(--color-sunday);
+}
+
+.header-day.is-holiday {
+  background-color: var(--bg-holiday);
+}
+
+.header-day.is-holiday .day-indicator {
+  background-color: var(--color-holiday);
+}
+
+.header-day.is-today,
+.row-cell-day.is-today {
+  background-color: rgba(59, 130, 246, 0.30); /* higher contrast fill */
+  outline: 2px solid #3b82f6;                 /* crisp border */
+  outline-offset: -2px;                        /* keeps border inside the cell */
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);/* subtle inner contrast */
+}
+
+.header-day.is-today .day-number,
+.header-day.is-today .day-indicator {
+  color: #ffffff;                              /* readable on the blue fill */
+  font-weight: 700;
+}
+.header-day.is-invalid {
+  opacity: 0.3;
+  background-color: var(--gray-100);
+}
+
+/* Summary Headers */
+.summary-header-text {
+  font-size: var(--font-xs);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Table Body */
+.attendance-table tbody tr {
+  height: var(--table-row-height);
+}
+
+/* Footer, Empty state, Scrollbars remain same as before ... */
+
+
+/* Empty State */
+.empty-row {
+  height: 400px;
+}
+
+.empty-cell {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  background-color: var(--gray-50);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.empty-icon {
+  font-size: 48px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  font-size: var(--font-xl);
+  color: var(--gray-700);
+  margin: 0;
+}
+
+.empty-state p {
+  font-size: var(--font-md);
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* Table Footer */
+.table-footer {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--gray-50);
+  border-top: 2px solid var(--gray-200);
+}
+
+.footer-stats {
+  display: flex;
+  gap: var(--spacing-xl);
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.stat-item strong {
+  color: var(--gray-800);
+  font-weight: var(--font-semibold);
+}
+
+/* Sticky Column Shadows */
+.header-checkbox::after,
+.header-sl::after,
+.header-empid::after,
+.header-empname::after,
+.header-month::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+  pointer-events: none;
+}
+
+/* Scrollbar Styling */
+.table-wrapper::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--gray-400);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--gray-100);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-500);
+}
+
+.table-wrapper::-webkit-scrollbar-corner {
+  background: var(--gray-100);
+}
+
+/* Loading State */
+.table-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: var(--gray-50);
+}
+
+.table-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--gray-200);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .attendance-table {
+    min-width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .table-filter-input {
+    width: 200px;
+  }
+  
+  .footer-stats {
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .table-filter-bar {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+  
+  .table-filter-input {
+    width: 100%;
+  }
+  
+  .attendance-table {
+    min-width: 800px;
+  }
+  
+  .header-fixed {
+    position: static;
+  }
+  
+  .footer-stats {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}

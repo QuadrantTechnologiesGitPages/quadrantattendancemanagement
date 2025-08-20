@@ -1,0 +1,228 @@
+/* Summary Cell Styles */
+.summary-cell {
+  position: relative;
+  min-width: var(--table-summary-width);
+  height: var(--table-row-height);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--excel-grid);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  transition: all var(--transition-fast);
+  cursor: default;
+}
+
+/* Summary Value */
+.summary-value {
+  font-size: var(--font-md);
+  font-weight: var(--font-bold);
+  line-height: 1;
+}
+
+/* Summary Percentage */
+.summary-percentage {
+  font-size: var(--font-xs);
+  color: var(--gray-600);
+  margin-top: 2px;
+}
+
+/* Summary Bar */
+.summary-bar {
+  position: absolute;
+  bottom: 2px;
+  left: 4px;
+  right: 4px;
+  height: 3px;
+  background-color: var(--gray-200);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.summary-bar-fill {
+  height: 100%;
+  background-color: currentColor;
+  transition: width var(--transition-normal);
+  border-radius: var(--radius-sm);
+}
+
+/* Threshold Indicator */
+.threshold-indicator {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: var(--font-xs);
+  color: var(--warning-color);
+  animation: pulse 2s infinite;
+}
+
+/* Variants */
+.summary-cell-success {
+  background-color: var(--bg-present);
+  color: var(--color-present);
+}
+
+.summary-cell-success .summary-bar-fill {
+  background-color: var(--color-present);
+}
+
+.summary-cell-danger {
+  background-color: var(--bg-absent);
+  color: var(--color-absent);
+}
+
+.summary-cell-danger .summary-bar-fill {
+  background-color: var(--color-absent);
+}
+
+.summary-cell-info {
+  background-color: var(--bg-leave);
+  color: var(--color-leave);
+}
+
+.summary-cell-info .summary-bar-fill {
+  background-color: var(--color-leave);
+}
+
+.summary-cell-neutral {
+  background-color: var(--gray-50);
+  color: var(--gray-700);
+}
+
+.summary-cell-neutral .summary-bar-fill {
+  background-color: var(--gray-500);
+}
+
+.summary-cell-primary {
+  background-color: var(--bg-holiday);
+  color: var(--color-holiday);
+}
+
+.summary-cell-primary .summary-bar-fill {
+  background-color: var(--color-holiday);
+}
+
+.summary-cell-purple {
+  background-color: var(--bg-night);
+  color: var(--color-night);
+}
+
+.summary-cell-purple .summary-bar-fill {
+  background-color: var(--color-night);
+}
+
+.summary-cell-warning {
+  background-color: var(--bg-halfday);
+  color: var(--color-halfday);
+}
+
+.summary-cell-warning .summary-bar-fill {
+  background-color: var(--color-halfday);
+}
+
+.summary-cell-default {
+  background-color: var(--gray-100);
+  color: var(--gray-800);
+}
+
+.summary-cell-default .summary-bar-fill {
+  background-color: var(--gray-600);
+}
+
+/* Highlighted State */
+.summary-cell.is-highlighted {
+  box-shadow: inset 0 0 0 2px var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+/* Indicator Classes */
+.summary-cell.indicator-excellent {
+  position: relative;
+}
+
+.summary-cell.indicator-excellent::after {
+  content: '✓';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: var(--font-xs);
+  color: var(--success-color);
+  font-weight: var(--font-bold);
+}
+
+.summary-cell.indicator-good {
+  border-color: var(--success-color);
+}
+
+.summary-cell.indicator-average {
+  border-color: var(--warning-color);
+}
+
+.summary-cell.indicator-poor {
+  border-color: var(--error-color);
+  background-color: var(--error-bg);
+}
+
+.summary-cell.indicator-warning {
+  animation: warningPulse 2s infinite;
+}
+
+@keyframes warningPulse {
+  0%, 100% {
+    background-color: var(--warning-bg);
+  }
+  50% {
+    background-color: var(--warning-color);
+    color: var(--white);
+  }
+}
+
+/* Hover State */
+.summary-cell:hover {
+  z-index: 1;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* Tooltip on hover */
+.summary-cell:hover::before {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--gray-800);
+  color: var(--white);
+  font-size: var(--font-xs);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  animation: tooltipFade 0.2s ease-in forwards;
+  z-index: var(--z-tooltip);
+  margin-bottom: 4px;
+}
+
+@keyframes tooltipFade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .summary-cell {
+    min-width: 60px;
+    padding: var(--spacing-xs);
+  }
+  
+  .summary-value {
+    font-size: var(--font-sm);
+  }
+  
+  .summary-percentage {
+    font-size: 10px;
+  }
+}
