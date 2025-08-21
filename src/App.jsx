@@ -67,14 +67,21 @@ function App() {
   };
   
   // Handle file load
-  const handleLoadFile = async (file) => {
-    try {
-      await loadExcelFile(file);
-      showNotification('Excel file loaded successfully', 'success');
-    } catch (err) {
-      showNotification(err.message, 'error');
-    }
-  };
+const handleLoadFile = async (file) => {
+  try {
+    await loadExcelFile(file);
+    showNotification('Excel file loaded successfully', 'success');
+    
+    // IMPORTANT: Force a refresh of the current view after loading
+    // This ensures the table re-renders with the newly loaded data
+    setTimeout(() => {
+      changeMonthYear(month, year);
+    }, 100);
+    
+  } catch (err) {
+    showNotification(err.message, 'error');
+  }
+};
   
   // Handle save
   const handleSave = async () => {
